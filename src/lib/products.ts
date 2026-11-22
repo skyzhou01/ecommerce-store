@@ -47,7 +47,7 @@ export type StockState =
   | { status: "low-stock"; label: string }
   | { status: "sold-out"; label: string };
 
-export function getStockState(product: Product): StockState {
+export function getStockState(product: Pick<Product, "stock">): StockState {
   if (product.stock <= 0) return { status: "sold-out", label: "Sold out" };
   if (product.stock <= LOW_STOCK_THRESHOLD) {
     return { status: "low-stock", label: `Only ${product.stock} left` };

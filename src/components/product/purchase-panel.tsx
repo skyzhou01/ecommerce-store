@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 
 import { Button, TextLink } from "@/components/ui";
+import { addToBag } from "@/lib/bag";
 import type { ProductSize, StockState } from "@/lib/products";
 import { cx } from "@/lib/cx";
 
@@ -10,14 +11,15 @@ type Status = { kind: "idle" } | { kind: "needs-size" } | { kind: "added"; size?
 
 /**
  * Size selection and add-to-bag. Sold-out products get a disabled button and
- * a client services prompt instead of a size picker.
- *
- * TODO: there is no cart yet; "added" only acknowledges locally.
+ * a client services prompt instead of a size picker. The bag is browser-only
+ * (see `@/lib/bag`).
  */
 export function PurchasePanel({
+  slug,
   sizes,
   stock,
 }: {
+  slug: string;
   sizes: ProductSize[];
   stock: StockState;
 }) {
@@ -51,6 +53,7 @@ export function PurchasePanel({
           setStatus({ kind: "needs-size" });
           return;
         }
+        addToBag(slug, size);
         setStatus({ kind: "added", size });
       }}
     >
@@ -107,8 +110,12 @@ export function PurchasePanel({
           Add to bag
         </Button>
         <p role="status" className="min-h-5 text-caption">
-          {status.kind === "added" &&
-            `Added to your bag${status.size ? ` in size ${status.size}` : ""}.`}
+          {status.kind === "added" && (
+            <>
+              Added to your bag{status.size ? ` in size ${status.size}` : ""}.{" "}
+              <TextLink href="/bag">View bag</TextLink>
+            </>
+          )}
         </p>
       </div>
     </form>
