@@ -99,7 +99,7 @@ async function ProductDetail({ params }: { params: Params }) {
                 {product.color}
               </p>
 
-              <PurchasePanel sizes={product.sizes} stock={stock} />
+              <PurchasePanel slug={product.slug} sizes={product.sizes} stock={stock} />
 
               <ul role="list" className="flex flex-col gap-2 border-t pt-6 text-caption text-muted">
                 <li>Complimentary express shipping and returns</li>

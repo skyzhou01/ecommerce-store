@@ -3,7 +3,8 @@ import Link from "next/link";
 import { Container, TextLink } from "@/components/ui";
 import { primaryNav } from "@/data/catalog";
 
-import { BagIcon, SearchIcon, UserIcon } from "./icons";
+import { BagLink } from "./bag-link";
+import { SearchIcon, UserIcon } from "./icons";
 import { MobileNav } from "./mobile-nav";
 
 export function SiteHeader() {
@@ -49,9 +50,7 @@ export function SiteHeader() {
             >
               <UserIcon />
             </Link>
-            <Link href="/bag" className="-mr-2 p-2" aria-label="Shopping bag, 0 items">
-              <BagIcon />
-            </Link>
+            <BagLink />
           </div>
         </Container>
       </header>
